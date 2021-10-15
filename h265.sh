@@ -43,8 +43,9 @@ _convertNow() {
         -c:a copy "$2" 2>&1 | tee -a "$3" > /dev/null
 }
 convertNow() {
-    local path
     local full_path basename extension filename
+    local pid spin i
+    local duration logfile tmpfile start end runtime hours minutes seconds
     full_path=$(realpath "$1")
     basename=$(basename -- "$full_path")
     extension="${basename##*.}"
@@ -55,8 +56,13 @@ convertNow() {
         mkdir -p h265_log
         trap ctrl_c INT
         duration=$(getDuration "$1")
-        echo -n '    'Duration: "$duration". Progress:
-        echo ' tail -f "'"h265_log/${filename}.log"'"'
+        echo -n "    Duration: ${duration}. Progress : "
+        touch "h265_log/${filename}.log"
+        logfile=$(realpath "h265_log/${filename}.log")
+        tmpfile=$(mktemp)
+        ln -s -f "$logfile" "$tmpfile"
+        echo -e "\e[35mtail -f $tmpfile\e[0m"
+        start=`date +%s`
         _convertNow "$1" "$tempfile" "h265_log/${filename}.log" &
         pid=$!
         spin='-\|/'
@@ -67,7 +73,11 @@ convertNow() {
           printf "\r    Converting...${spin:$i:1}"
           sleep .1
         done
-        printf "\r\033[K%s\n" '    Converted.'
+        end=`date +%s`
+        runtime=$((end-start))
+        hours=$((runtime / 3600)); minutes=$(( (runtime % 3600) / 60 )); seconds=$(( (runtime % 3600) % 60 ));
+        printf "\r\033[K%s\n" '    Converted. '"Runtime: $hours:$minutes:$seconds (hh:mm:ss)"
+        rm "$tmpfile"
         touch -r "$1" "$tempfile"
         if [ -e "$1" ];then
             mkdir -p h264_existing
