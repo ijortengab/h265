@@ -1,12 +1,130 @@
+## About
+
+Just a simple bash script to bulk convert MP4 file from h264 to h265 codec.
+
+`ffmpeg` or `ffmpeg.exe` is required.
+
+Tested in `Cygwin`, `WSL2`, `Ubuntu 20.04`.
+
+## Install
+
+Just download the shell script and put in your PATH.
+
+```
+curl -L https://raw.githubusercontent.com/ijortengab/h265/master/h265.sh -o h265.sh
+```
+
+or
+
+```
+wget https://raw.githubusercontent.com/ijortengab/h265/master/h265.sh
+```
+
+then
+
+```
+chmod a+x h265.sh
+sudo mv h265.sh -t /usr/local/bin
+```
+
 ## How to Use
 
-Just execute this script, then every MP4 file in current working directory
-will be inside in one of these directory:
+Just execute this command `h265.sh`, converting will be run. After finish, every
+MP4 file in current working directory will be inside in one of these directory:
 
  - h264_existing
  - h265_existing
  - h265_converted
  - mp4_unknown
+
+## Code Snippet for Recursive
+
+Convert all mp4 file inside this directory recursively:
+
+```
+find . -type d \
+    ! -path '*h264_existing*' \
+    ! -path '*h265_existing*' \
+    ! -path '*h265_converted*' \
+    ! -path '*mp4_unknown*' \
+    ! -path '*h265_log*' \
+    -exec sh -c 'echo "$0"; cd "$0"; h265.sh' {} \;
+```
+
+Find mp4 file inside `h264_existing` directory:
+
+```
+find . -type f -iname '*.mp4' -path '*h264_existing*'
+```
+
+then delete them:
+
+```
+find . -type f -iname '*.mp4' -path '*h264_existing*' -delete
+```
+
+Find mp4 file inside `h265_converted` or `h265_existing` directory:
+
+```
+find . -iname '*.mp4' -path '*h265_converted*' -o -path '*h265_existing*' -type f
+```
+
+then move back to parent directory:
+
+```
+find . -iname '*.mp4' \( -path '*h265_converted*' -o -path '*h265_existing*' \) -type f  \
+    -exec sh -c 'echo "$0"; _dir=$(dirname "$0");  dir=$(dirname "$_dir"); mv "$0" -t "$dir"' {} \;
+```
+
+Find log file:
+
+```
+find . -type f -iname '*.log' -path '*h265_log*'
+```
+
+then delete them:
+
+```
+find . -type f -iname '*.log' -path '*h265_log*' -delete
+```
+
+Find mp4 file inside `mp4_unkown` directory:
+
+```
+find . -type f -iname '*.mp4' -path '*mp4_unkown*'
+```
+
+then delete them:
+
+```
+find . -type f -iname '*.mp4' -path '*mp4_unkown*' -delete
+```
+
+Find empty directory:
+
+```
+find . \
+    -type d \
+    \( -path '*h264_existing*' \
+    -o -path '*h265_existing*' \
+    -o -path '*h265_converted*' \
+    -o -path '*mp4_unkown*' \
+    -o -path '*h265_log*' \) \
+    -empty
+```
+
+then delete them:
+
+```
+find . \
+    -type d \
+    \( -path '*h264_existing*' \
+    -o -path '*h265_existing*' \
+    -o -path '*h265_converted*' \
+    -o -path '*mp4_unkown*' \
+    -o -path '*h265_log*' \) \
+    -empty -delete
+```
 
 ## Reference
 
@@ -17,3 +135,7 @@ https://stackoverflow.com/questions/12498304/using-bash-to-display-a-progress-in
 Google query "bash printf \r clear"
 
 https://stackoverflow.com/questions/2388090/how-to-delete-and-replace-last-line-in-the-terminal-using-bash
+
+Google query "bash time execution"
+
+https://unix.stackexchange.com/questions/52313/how-to-get-execution-time-of-a-script-effectively
