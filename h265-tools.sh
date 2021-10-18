@@ -38,7 +38,10 @@ until [[ "$option" == 0 ]]; do
                 areyousure+="$part"
             done
             if [[ "$areyousure" == "yes" ]];then
+                echo -n "Deleting... (please wait and don't hit any key)"
+                sleep .2
                 find . -type f -path '*h264_existing*' -iname '*.mp4' -delete
+                printf "\r\033[K"
                 echo "Deleted."
             else
                 echo "Cancelled."
@@ -78,8 +81,11 @@ until [[ "$option" == 0 ]]; do
                 areyousure+="$part"
             done
             if [[ "$areyousure" == "yes" ]];then
+                echo -n "Moving... (please wait and don't hit any key)"
+                sleep .2
                 find . -type f \( -path '*h265_converted*' -o -path '*h265_existing*' \) -iname '*.mp4' \
                     -exec sh -c '_dir=$(dirname "$0");  dir=$(dirname "$_dir"); mv "$0" -t "$dir"' {} \;
+                printf "\r\033[K"
                 echo "Moved."
             else
                 echo "Cancelled."
@@ -118,7 +124,10 @@ until [[ "$option" == 0 ]]; do
                 areyousure+="$part"
             done
             if [[ "$areyousure" == "yes" ]];then
+                echo -n "Deleting... (please wait and don't hit any key)"
+                sleep .2
                 find . -type f -path '*h265_log*' -iname '*.log' -delete
+                printf "\r\033[K"
                 echo "Deleted."
             else
                 echo "Cancelled."
@@ -157,7 +166,10 @@ until [[ "$option" == 0 ]]; do
                 areyousure+="$part"
             done
             if [[ "$areyousure" == "yes" ]];then
+                echo -n "Deleting... (please wait and don't hit any key)"
+                sleep .2
                 find . -type f -path '*mp4_unknown*' -iname '*.mp4' -delete
+                printf "\r\033[K"
                 echo "Deleted."
             else
                 echo "Cancelled."
@@ -193,6 +205,8 @@ until [[ "$option" == 0 ]]; do
                     -o -path '*mp4_unknown*' \
                     -o -path '*h265_log*' \) \
                     -empty
+                echo -n "Removing... (please wait and don't hit any key)"
+                sleep .2
                 find . \
                     -type d \
                     \( -path '*h264_existing*' \
@@ -201,6 +215,8 @@ until [[ "$option" == 0 ]]; do
                     -o -path '*mp4_unknown*' \
                     -o -path '*h265_log*' \) \
                     -empty -delete
+                printf "\r\033[K"
+                echo "Removed."
                 echo
             else
                 echo -ne "\e[35m"
