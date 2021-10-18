@@ -20,7 +20,7 @@ ctrl_c() {
     fi
     # Send trigger for break 'while true'
     touch h265.stop
-    rm "$tmpfile"
+    rm "$templog"
     exit
 }
 isTemp() {
@@ -58,7 +58,7 @@ _convertNow() {
 convertNow() {
     local full_path basename extension filename
     local pid spin i
-    local duration logfile tmpfile start end runtime hours minutes seconds
+    local duration logfile templog start end runtime hours minutes seconds
     full_path=$(realpath "$1")
     basename=$(basename -- "$full_path")
     extension="${basename##*.}"
@@ -71,9 +71,9 @@ convertNow() {
         echo -n "    Duration: ${duration}. Progress : "
         touch "h265_log/${filename}.log"
         logfile=$(realpath "h265_log/${filename}.log")
-        tmpfile=$(mktemp)
-        ln -s -f "$logfile" "$tmpfile"
-        echo -e "\e[35mtail -f $tmpfile\e[0m"
+        templog=$(mktemp)
+        ln -s -f "$logfile" "$templog"
+        echo -e "\e[35mtail -f $templog\e[0m"
         start=`date +%s`
         trap ctrl_c INT
         _convertNow "$1" "$tempfile" "h265_log/${filename}.log" &
@@ -101,7 +101,7 @@ convertNow() {
             mv "$tempfile" h265_converted/"$1"
             echo '    'Move converted file to directory: h265_converted.
         fi
-        rm "$tmpfile"
+        rm "$templog"
     fi
 }
 getDuration() {
