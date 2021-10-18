@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [ -e 'h265.lock' ];then
-    echo 'Found lock file. Process terminated.'
-    echo 'Check process by your self, then remove lock file manually.'
+    echo 'This directory may be being processed by someone else.'
+    echo 'Check process by yourself, then remove lock file manually.'
     echo -e "\e[35mrm '$PWD/h265.lock'\e[0m"
     exit
 fi
