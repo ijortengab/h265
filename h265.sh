@@ -20,6 +20,7 @@ ctrl_c() {
     fi
     # Send trigger for break 'while true'
     touch h265.stop
+    rm "$tmpfile"
     exit
 }
 isTemp() {
@@ -89,7 +90,6 @@ convertNow() {
         runtime=$((end-start))
         hours=$((runtime / 3600)); minutes=$(( (runtime % 3600) / 60 )); seconds=$(( (runtime % 3600) % 60 ));
         printf "\r\033[K%s%s. %s: %02d:%02d:%02d.\n" '    ' 'Converted' 'Runtime' $hours $minutes $seconds
-        rm "$tmpfile"
         touch -r "$1" "$tempfile"
         if [ -e "$1" ];then
             mkdir -p h264_existing
@@ -101,6 +101,7 @@ convertNow() {
             mv "$tempfile" h265_converted/"$1"
             echo '    'Move converted file to directory: h265_converted.
         fi
+        rm "$tmpfile"
     fi
 }
 getDuration() {
