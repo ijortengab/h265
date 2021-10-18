@@ -57,7 +57,7 @@ until [[ "$option" == 0 ]]; do
             if [[ $count -gt 0 ]];then
                 find . -type f -path '*h265_converted*' -o -path '*h265_existing*' -iname '*.mp4'
                 echo
-                echo "Found $count file(s). Type yes to move to parent directory."
+                echo "Found $count file(s)."
                 echo
                 option=2a
                 continue
