@@ -139,3 +139,7 @@ https://stackoverflow.com/questions/2388090/how-to-delete-and-replace-last-line-
 Google query "bash time execution"
 
 https://unix.stackexchange.com/questions/52313/how-to-get-execution-time-of-a-script-effectively
+
+Google query "bash string pad"
+
+https://stackoverflow.com/questions/1117134/padding-zeros-in-a-string/1117140
