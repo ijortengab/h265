@@ -30,7 +30,7 @@ until [[ "$option" == 0 ]]; do
             echo
             areyousure=
             until [[ "$areyousure" == "yes" || ${#areyousure} == 3 ]]; do
-                read -rsn1 -p "Type yes without following the Enter key or Hit Enter key to cancel." part
+                read -rsn1 -p $'Type \e[33myes\e[0m without following the Enter key or hit Enter key to cancel.' part
                 printf "\r\033[K"
                 if [[ -z "$part" ]];then
                     break
@@ -70,7 +70,7 @@ until [[ "$option" == 0 ]]; do
             echo
             areyousure=
             until [[ "$areyousure" == "yes" || ${#areyousure} == 3 ]]; do
-                read -rsn1 -p "Type yes without following the Enter key or Hit Enter key to cancel." part
+                read -rsn1 -p $'Type \e[33myes\e[0m without following the Enter key or hit Enter key to cancel.' part
                 printf "\r\033[K"
                 if [[ -z "$part" ]];then
                     break
@@ -110,7 +110,7 @@ until [[ "$option" == 0 ]]; do
             echo
             areyousure=
             until [[ "$areyousure" == "yes" || ${#areyousure} == 3 ]]; do
-                read -rsn1 -p "Type yes without following the Enter key or Hit Enter key to cancel." part
+                read -rsn1 -p $'Type \e[33myes\e[0m without following the Enter key or hit Enter key to cancel.' part
                 printf "\r\033[K"
                 if [[ -z "$part" ]];then
                     break
@@ -149,7 +149,7 @@ until [[ "$option" == 0 ]]; do
             echo
             areyousure=
             until [[ "$areyousure" == "yes" || ${#areyousure} == 3 ]]; do
-                read -rsn1 -p "Type yes without following the Enter key or Hit Enter key to cancel." part
+                read -rsn1 -p $'Type \e[33myes\e[0m without following the Enter key or hit Enter key to cancel.' part
                 printf "\r\033[K"
                 if [[ -z "$part" ]];then
                     break
