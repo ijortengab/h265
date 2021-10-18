@@ -8,12 +8,12 @@ until [[ "$option" == 0 ]]; do
     case "$option" in
         1)
             echo -ne "\e[35m"
-            echo find . -type f -iname \'*.mp4\' -path \'*h264_existing*\'
+            echo find . -type f -path \'*h264_existing*\' -iname \'*.mp4\'
             echo -ne "\e[0m"
             echo
-            count=$(find . -type f -iname '*.mp4' -path '*h264_existing*' | wc -l)
+            count=$(find . -type f -path '*h264_existing*' -iname '*.mp4' | wc -l)
             if [[ $count -gt 0 ]];then
-                find . -type f -iname '*.mp4' -path '*h264_existing*'
+                find . -type f -path '*h264_existing*' -iname '*.mp4'
                 echo
                 echo "Found $count file(s)."
                 echo
@@ -23,7 +23,7 @@ until [[ "$option" == 0 ]]; do
         ;;
         1a)
             echo -ne "\e[35m"
-            echo find . -type f -iname \'*.mp4\' -path \'*h264_existing*\' -delete
+            echo find . -type f -path \'*h264_existing*\' -iname \'*.mp4\' -delete
             echo -ne "\e[0m"
             echo
             echo "Are you sure wants to delete all?"
@@ -38,7 +38,7 @@ until [[ "$option" == 0 ]]; do
                 areyousure+="$part"
             done
             if [[ "$areyousure" == "yes" ]];then
-                find . -type f -iname '*.mp4' -path '*h264_existing*' -delete
+                find . -type f -path '*h264_existing*' -iname '*.mp4' -delete
                 echo "Deleted."
             else
                 echo "Cancelled."
@@ -47,14 +47,14 @@ until [[ "$option" == 0 ]]; do
         ;;
         2)
             echo -ne "\e[35m"
-            echo find . -iname \'*.mp4\' -path \'*h265_converted*\' -o -path \'*h265_existing*\' -type f
+            echo find . -type f -path \'*h265_converted*\' -o -path \'*h265_existing*\' -iname \'*.mp4\'
             echo -ne "\e[0m"
             echo
-            count=$(find . -iname '*.mp4' -path '*h265_converted*' -o -path '*h265_existing*' -type f | wc -l)
+            count=$(find . -type f -path '*h265_converted*' -o -path '*h265_existing*' -iname '*.mp4'| wc -l)
             if [[ $count -gt 0 ]];then
-                find . -iname '*.mp4' -path '*h265_converted*' -o -path '*h265_existing*' -type f
+                find . -type f -path '*h265_converted*' -o -path '*h265_existing*' -iname '*.mp4'
                 echo
-                echo "Found $count file(s)."
+                echo "Found $count file(s). Type yes to move to parent directory."
                 echo
                 option=2a
                 continue
@@ -62,7 +62,7 @@ until [[ "$option" == 0 ]]; do
         ;;
         2a)
             echo -ne "\e[35m"
-            echo find . -iname \'*.mp4\' \\\( -path \'*h265_converted*\' -o -path \'*h265_existing*\' \\\) -type f  \
+            echo find . -type f  \\\( -path \'*h265_converted*\' -o -path \'*h265_existing*\' \\\) -iname \'*.mp4\' \
                 -exec sh -c \'echo \"\$0\"\; _dir=\$\(dirname \"\$0\"\)\;  dir=\$\(dirname \"\$_dir\"\)\; mv \"\$0\" -t \"\$dir\"\' \{\} \\\;
             echo -ne "\e[0m"
             echo
@@ -78,7 +78,7 @@ until [[ "$option" == 0 ]]; do
                 areyousure+="$part"
             done
             if [[ "$areyousure" == "yes" ]];then
-                find . -iname '*.mp4' \( -path '*h265_converted*' -o -path '*h265_existing*' \) -type f  \
+                find . -type f \( -path '*h265_converted*' -o -path '*h265_existing*' \) -iname '*.mp4' \
                     -exec sh -c '_dir=$(dirname "$0");  dir=$(dirname "$_dir"); mv "$0" -t "$dir"' {} \;
                 echo "Moved."
             else
@@ -88,10 +88,10 @@ until [[ "$option" == 0 ]]; do
         ;;
         3)
             echo -ne "\e[35m"
-            echo find . -type f -iname \'*.log\' -path \'*h265_log*\'
+            echo find . -type f -path \'*h265_log*\ -iname \'*.log\'
             echo -ne "\e[0m"
             echo
-            count=$(find . -type f -iname '*.log' -path '*h265_log*' | wc -l)
+            count=$(find . -type f -path '*h265_log*' -iname '*.log' | wc -l)
             if [[ $count -gt 0 ]];then
                 find . -type f -iname '*.log' -path '*h265_log*'
                 echo
@@ -103,7 +103,7 @@ until [[ "$option" == 0 ]]; do
         ;;
         3a)
             echo -ne "\e[35m"
-            echo find . -type f -iname \'*.log\' -path \'*h265_log*\' -delete
+            echo find . -type f -path \'*h265_log*\' -iname \'*.log\' -delete
             echo -ne "\e[0m"
             echo
             echo "Are you sure wants to delete all?"
@@ -118,7 +118,7 @@ until [[ "$option" == 0 ]]; do
                 areyousure+="$part"
             done
             if [[ "$areyousure" == "yes" ]];then
-                find . -type f -iname '*.log' -path '*h265_log*' -delete
+                find . -type f -path '*h265_log*' -iname '*.log' -delete
                 echo "Deleted."
             else
                 echo "Cancelled."
@@ -127,12 +127,12 @@ until [[ "$option" == 0 ]]; do
         ;;
         4)
             echo -ne "\e[35m"
-            echo find . -type f -iname \'*.mp4\' -path \'*mp4_unknown*\'
+            echo find . -type f -path \'*mp4_unknown*\' -iname \'*.mp4\'
             echo -ne "\e[0m"
             echo
-            count=$(find . -type f -iname '*.mp4' -path '*mp4_unknown*' | wc -l)
+            count=$(find . -type f -path '*mp4_unknown*' -iname '*.mp4' | wc -l)
             if [[ $count -gt 0 ]];then
-                find . -type f -iname '*.mp4' -path '*mp4_unknown*'
+                find . -type f -path '*mp4_unknown*' -iname '*.mp4'
                 echo
                 echo "Found $count file(s)."
                 echo
@@ -142,7 +142,7 @@ until [[ "$option" == 0 ]]; do
         ;;
         4a)
             echo -ne "\e[35m"
-            echo find . -type f -iname \'*.mp4\' -path \'*mp4_unknown*\' -delete
+            echo find . -type f -path \'*mp4_unknown*\' -iname \'*.mp4\' -delete
             echo -ne "\e[0m"
             echo
             echo "Are you sure wants to delete all?"
@@ -157,7 +157,7 @@ until [[ "$option" == 0 ]]; do
                 areyousure+="$part"
             done
             if [[ "$areyousure" == "yes" ]];then
-                find . -type f -iname '*.mp4' -path '*mp4_unknown*' -delete
+                find . -type f -path '*mp4_unknown*' -iname '*.mp4' -delete
                 echo "Deleted."
             else
                 echo "Cancelled."
