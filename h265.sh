@@ -20,8 +20,31 @@ ctrl_c() {
     fi
     # Send trigger for break 'while true'
     touch h265.stop
+    # Autokill tail.
+    pidtail=$(getPid tail "tail -f $templog")
+    if [ -n "$pidtail" ];then
+        kill $pidtail
+    fi
     rm "$templog"
     exit
+}
+getPid() {
+    if [[ $(uname) == "Linux" ]];then
+        pid=$(ps aux | grep "$2" | grep -v grep | awk '{print $2}')
+        echo $pid
+    elif [[ $(uname | cut -c1-6) == "CYGWIN" ]];then
+        local pid command ifs
+        ifs=$IFS
+        ps -s | grep "$1" | awk '{print $1}' | while IFS= read -r pid; do\
+            command=$(cat /proc/${pid}/cmdline | tr '\0' ' ')
+            command=$(echo "$command" | sed 's/\ $//')
+            if [[ "$command" == "$2" ]];then
+                echo $pid
+                break
+            fi
+        done
+        IFS=$ifs
+    fi
 }
 isTemp() {
     local output
@@ -57,7 +80,7 @@ _convertNow() {
 }
 convertNow() {
     local full_path basename extension filename
-    local pid spin i
+    local pid spin i pidtail
     local duration logfile templog start end runtime hours minutes seconds
     full_path=$(realpath "$1")
     basename=$(basename -- "$full_path")
@@ -100,6 +123,11 @@ convertNow() {
             mkdir -p h265_converted
             mv "$tempfile" h265_converted/"$1"
             echo '    'Move converted file to directory: h265_converted.
+        fi
+        # Autokill tail.
+        pidtail=$(getPid tail "tail -f $templog")
+        if [ -n "$pidtail" ];then
+            kill $pidtail
         fi
         rm "$templog"
     fi
