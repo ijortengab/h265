@@ -9,7 +9,7 @@ ctrl_c() {
     printf "\r\033[K%s\n" '    Aborted.'
     if [ -e "$tempfile" ];then
         rm "$tempfile"
-        echo '    Delete file:' "$tempfile"
+        echo -ne "    Delete file: \e[33m$tempfile\e[0m.\n"
     fi
     # Send trigger for break 'while true'
     touch h265.stop
@@ -101,21 +101,22 @@ getDuration() {
 }
 while true; do
     find * -maxdepth 0 -iname '*.mp4' | head -1 | while IFS= read -r path; do
+        echo -ne "File \e[33m$path\e[0m is "
         if isTemp "$path";then
-            echo File "$path" is temporary file.
+            echo temporary file.
             mkdir -p mp4_unknown
             mv "$path" -t mp4_unknown
             echo '    'Move file to directory: mp4_unknown.
         elif ish264 "$path";then
-            echo File "$path" is h264 encoding.
+            echo h264 encoding.
             convertNow "$path"
         elif ish265 "$path";then
-            echo File "$path" is h265 encoding.
+            echo h265 encoding.
             mkdir -p h265_existing
             mv "$path" -t h265_existing
             echo '    'Move file to directory: h265_existing.
         else
-            echo File "$path" is unknown encoding.
+            echo unknown encoding.
             mkdir -p mp4_unknown
             mv "$path" -t mp4_unknown
             echo '    'Move file to directory: mp4_unknown.
