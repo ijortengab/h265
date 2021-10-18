@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ -e 'h265.stop' ];then
+    rm 'h265.stop'
+    echo -ne "Delete file: \e[33mh265.stop\e[0m.\n"
+fi
+
 ctrl_c() {
     printf "\r\033[K%s\n" '    Aborted.'
     if [ -e "$tempfile" ];then
