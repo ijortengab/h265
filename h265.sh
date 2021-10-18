@@ -54,7 +54,6 @@ convertNow() {
     tempfile=${filename}.h265_converting.${extension}
     if [ ! -e "$tempfile" ];then
         mkdir -p h265_log
-        trap ctrl_c INT
         duration=$(getDuration "$1")
         echo -n "    Duration: ${duration}. Progress : "
         touch "h265_log/${filename}.log"
@@ -63,6 +62,7 @@ convertNow() {
         ln -s -f "$logfile" "$tmpfile"
         echo -e "\e[35mtail -f $tmpfile\e[0m"
         start=`date +%s`
+        trap ctrl_c INT
         _convertNow "$1" "$tempfile" "h265_log/${filename}.log" &
         pid=$!
         spin='-\|/'
