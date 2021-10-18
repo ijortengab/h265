@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if [ -e 'h265.lock' ];then
+    echo 'Found lock file. Process terminated.'
+    echo 'Check process by your self, then remove lock file manually.'
+    echo -e "\e[35mrm '$PWD/h265.lock'\e[0m"
+    exit
+fi
+
 if [ -e 'h265.stop' ];then
     rm 'h265.stop'
     echo -ne "Delete file: \e[33mh265.stop\e[0m.\n"
@@ -99,6 +106,7 @@ convertNow() {
 getDuration() {
     ffmpeg -i "$1" 2>&1 | grep -o -P "(?<=Duration: ).*?(?=,)"
 }
+touch h265.lock
 while true; do
     find * -maxdepth 0 -iname '*.mp4' | head -1 | while IFS= read -r path; do
         echo -ne "File \e[33m$path\e[0m is "
@@ -131,3 +139,4 @@ while true; do
         break
     fi
 done
+rm h265.lock
