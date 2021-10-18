@@ -57,50 +57,50 @@ find . -type d \
 Find mp4 file inside `h264_existing` directory:
 
 ```
-find . -type f -iname '*.mp4' -path '*h264_existing*'
+find . -type f -path '*h264_existing*' -iname '*.mp4'
 ```
 
 then delete them:
 
 ```
-find . -type f -iname '*.mp4' -path '*h264_existing*' -delete
+find . -type f -path '*h264_existing*' -iname '*.mp4' -delete
 ```
 
 Find mp4 file inside `h265_converted` or `h265_existing` directory:
 
 ```
-find . -iname '*.mp4' -path '*h265_converted*' -o -path '*h265_existing*' -type f
+find . -type f -path '*h265_converted*' -o -path '*h265_existing*' -iname '*.mp4'
 ```
 
 then move back to parent directory:
 
 ```
-find . -iname '*.mp4' \( -path '*h265_converted*' -o -path '*h265_existing*' \) -type f  \
-    -exec sh -c 'echo "$0"; _dir=$(dirname "$0");  dir=$(dirname "$_dir"); mv "$0" -t "$dir"' {} \;
+find . -type f \( -path '*h265_converted*' -o -path '*h265_existing*' \) -iname '*.mp4' \
+    -exec sh -c '_dir=$(dirname "$0");  dir=$(dirname "$_dir"); mv "$0" -t "$dir"' {} \;
 ```
 
 Find log file:
 
 ```
-find . -type f -iname '*.log' -path '*h265_log*'
+find . -type f -path '*h265_log*' -iname '*.log'
 ```
 
 then delete them:
 
 ```
-find . -type f -iname '*.log' -path '*h265_log*' -delete
+find . -type f -path '*h265_log*' -iname '*.log' -delete
 ```
 
-Find mp4 file inside `mp4_unkown` directory:
+Find mp4 file inside `mp4_unknown` directory:
 
 ```
-find . -type f -iname '*.mp4' -path '*mp4_unkown*'
+find . -type f -path '*mp4_unknown*' -iname '*.mp4'
 ```
 
 then delete them:
 
 ```
-find . -type f -iname '*.mp4' -path '*mp4_unkown*' -delete
+find . -type f -path '*mp4_unknown*' -iname '*.mp4' -delete
 ```
 
 Find empty directory:
@@ -111,7 +111,7 @@ find . \
     \( -path '*h264_existing*' \
     -o -path '*h265_existing*' \
     -o -path '*h265_converted*' \
-    -o -path '*mp4_unkown*' \
+    -o -path '*mp4_unknown*' \
     -o -path '*h265_log*' \) \
     -empty
 ```
@@ -124,7 +124,7 @@ find . \
     \( -path '*h264_existing*' \
     -o -path '*h265_existing*' \
     -o -path '*h265_converted*' \
-    -o -path '*mp4_unkown*' \
+    -o -path '*mp4_unknown*' \
     -o -path '*h265_log*' \) \
     -empty -delete
 ```
