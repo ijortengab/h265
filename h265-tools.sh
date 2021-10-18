@@ -15,7 +15,7 @@ until [[ "$option" == 0 ]]; do
             if [[ $count -gt 0 ]];then
                 find . -type f -iname '*.mp4' -path '*h264_existing*'
                 echo
-                echo "Found $count file(s). Type yes to delete."
+                echo "Found $count file(s)."
                 echo
                 option=1a
                 continue
@@ -26,13 +26,22 @@ until [[ "$option" == 0 ]]; do
             echo find . -type f -iname \'*.mp4\' -path \'*h264_existing*\' -delete
             echo -ne "\e[0m"
             echo
-            read -p "Are you sure wants to delete all? " areyousure
+            echo "Are you sure wants to delete all?"
             echo
-            if [[ "$areyousure" == "yes" ]]; then
+            areyousure=
+            until [[ "$areyousure" == "yes" || ${#areyousure} == 3 ]]; do
+                read -rsn1 -p "Type yes without following the Enter key or Hit Enter key to cancel." part
+                printf "\r\033[K"
+                if [[ -z "$part" ]];then
+                    break
+                fi
+                areyousure+="$part"
+            done
+            if [[ "$areyousure" == "yes" ]];then
                 find . -type f -iname '*.mp4' -path '*h264_existing*' -delete
                 echo "Deleted."
             else
-                echo "Ignored."
+                echo "Cancelled."
             fi
             echo
         ;;
@@ -45,7 +54,7 @@ until [[ "$option" == 0 ]]; do
             if [[ $count -gt 0 ]];then
                 find . -iname '*.mp4' -path '*h265_converted*' -o -path '*h265_existing*' -type f
                 echo
-                echo "Found $count file(s). Type yes to move to parent directory."
+                echo "Found $count file(s)."
                 echo
                 option=2a
                 continue
@@ -57,14 +66,23 @@ until [[ "$option" == 0 ]]; do
                 -exec sh -c \'echo \"\$0\"\; _dir=\$\(dirname \"\$0\"\)\;  dir=\$\(dirname \"\$_dir\"\)\; mv \"\$0\" -t \"\$dir\"\' \{\} \\\;
             echo -ne "\e[0m"
             echo
-            read -p "Are you sure wants move all to parent directory? " areyousure
+            echo "Are you sure wants move all to parent directory?"
             echo
-            if [[ "$areyousure" == "yes" ]]; then
+            areyousure=
+            until [[ "$areyousure" == "yes" || ${#areyousure} == 3 ]]; do
+                read -rsn1 -p "Type yes without following the Enter key or Hit Enter key to cancel." part
+                printf "\r\033[K"
+                if [[ -z "$part" ]];then
+                    break
+                fi
+                areyousure+="$part"
+            done
+            if [[ "$areyousure" == "yes" ]];then
                 find . -iname '*.mp4' \( -path '*h265_converted*' -o -path '*h265_existing*' \) -type f  \
                     -exec sh -c '_dir=$(dirname "$0");  dir=$(dirname "$_dir"); mv "$0" -t "$dir"' {} \;
                 echo "Moved."
             else
-                echo "Ignored."
+                echo "Cancelled."
             fi
             echo
         ;;
@@ -77,7 +95,7 @@ until [[ "$option" == 0 ]]; do
             if [[ $count -gt 0 ]];then
                 find . -type f -iname '*.log' -path '*h265_log*'
                 echo
-                echo "Found $count file(s). Type yes to delete."
+                echo "Found $count file(s)."
                 echo
                 option=3a
                 continue
@@ -88,13 +106,22 @@ until [[ "$option" == 0 ]]; do
             echo find . -type f -iname \'*.log\' -path \'*h265_log*\' -delete
             echo -ne "\e[0m"
             echo
-            read -p "Are you sure wants to delete all? " areyousure
+            echo "Are you sure wants to delete all?"
             echo
-            if [[ "$areyousure" == "yes" ]]; then
+            areyousure=
+            until [[ "$areyousure" == "yes" || ${#areyousure} == 3 ]]; do
+                read -rsn1 -p "Type yes without following the Enter key or Hit Enter key to cancel." part
+                printf "\r\033[K"
+                if [[ -z "$part" ]];then
+                    break
+                fi
+                areyousure+="$part"
+            done
+            if [[ "$areyousure" == "yes" ]];then
                 find . -type f -iname '*.log' -path '*h265_log*' -delete
                 echo "Deleted."
             else
-                echo "Ignored."
+                echo "Cancelled."
             fi
             echo
         ;;
@@ -107,7 +134,7 @@ until [[ "$option" == 0 ]]; do
             if [[ $count -gt 0 ]];then
                 find . -type f -iname '*.mp4' -path '*mp4_unknown*'
                 echo
-                echo "Found $count file(s). Type yes to delete."
+                echo "Found $count file(s)."
                 echo
                 option=4a
                 continue
@@ -118,28 +145,26 @@ until [[ "$option" == 0 ]]; do
             echo find . -type f -iname \'*.mp4\' -path \'*mp4_unknown*\' -delete
             echo -ne "\e[0m"
             echo
-            read -p "Are you sure wants to delete all? " areyousure
+            echo "Are you sure wants to delete all?"
             echo
-            if [[ "$areyousure" == "yes" ]]; then
+            areyousure=
+            until [[ "$areyousure" == "yes" || ${#areyousure} == 3 ]]; do
+                read -rsn1 -p "Type yes without following the Enter key or Hit Enter key to cancel." part
+                printf "\r\033[K"
+                if [[ -z "$part" ]];then
+                    break
+                fi
+                areyousure+="$part"
+            done
+            if [[ "$areyousure" == "yes" ]];then
                 find . -type f -iname '*.mp4' -path '*mp4_unknown*' -delete
                 echo "Deleted."
             else
-                echo "Ignored."
+                echo "Cancelled."
             fi
             echo
         ;;
         5)
-            echo -ne "\e[35m"
-            echo find . \
-                -type d \
-                \\\( -path \'*h264_existing*\' \
-                -o -path \'*h265_existing*\' \
-                -o -path \'*h265_converted*\' \
-                -o -path \'*mp4_unknown*\' \
-                -o -path \'*h265_log*\' \\\) \
-                -empty
-            echo -ne "\e[0m"
-            echo
             count=$(find . \
                 -type d \
                 \( -path '*h264_existing*' \
@@ -149,6 +174,17 @@ until [[ "$option" == 0 ]]; do
                 -o -path '*h265_log*' \) \
                 -empty | wc -l)
             if [[ $count -gt 0 ]];then
+                echo -ne "\e[35m"
+                echo find . \
+                    -type d \
+                    \\\( -path \'*h264_existing*\' \
+                    -o -path \'*h265_existing*\' \
+                    -o -path \'*h265_converted*\' \
+                    -o -path \'*mp4_unknown*\' \
+                    -o -path \'*h265_log*\' \\\) \
+                    -empty -delete
+                echo -ne "\e[0m"
+                echo
                 find . \
                     -type d \
                     \( -path '*h264_existing*' \
@@ -165,6 +201,18 @@ until [[ "$option" == 0 ]]; do
                     -o -path '*mp4_unknown*' \
                     -o -path '*h265_log*' \) \
                     -empty -delete
+                echo
+            else
+                echo -ne "\e[35m"
+                echo find . \
+                    -type d \
+                    \\\( -path \'*h264_existing*\' \
+                    -o -path \'*h265_existing*\' \
+                    -o -path \'*h265_converted*\' \
+                    -o -path \'*mp4_unknown*\' \
+                    -o -path \'*h265_log*\' \\\) \
+                    -empty
+                echo -ne "\e[0m"
                 echo
             fi
         ;;
