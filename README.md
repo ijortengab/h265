@@ -39,6 +39,9 @@ MP4 file in current working directory will be inside in one of these directory:
 
 ## Code Snippet for Recursive
 
+> Tips: It would be better if you use the following two scripts:
+> h265-recursive.sh and h265-tools.sh.
+
 Convert all mp4 file inside this directory recursively:
 
 ```
