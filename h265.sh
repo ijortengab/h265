@@ -7,6 +7,8 @@ if [ -e 'h265.lock' ];then
     exit
 fi
 
+command -v "ffmpeg" >/dev/null || { echo "ffmpeg command not found."; exit 1; }
+
 if [ -e 'h265.stop' ];then
     rm 'h265.stop'
     echo -ne "Delete file: \e[33mh265.stop\e[0m.\n"
