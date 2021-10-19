@@ -82,7 +82,7 @@ _convertNow() {
 }
 convertNow() {
     local full_path basename extension filename
-    local pid spin i pidtail
+    local pid spin i pidtail before after percentage size
     local duration logfile templog start end runtime hours minutes seconds
     full_path=$(realpath "$1")
     basename=$(basename -- "$full_path")
@@ -114,17 +114,22 @@ convertNow() {
         end=`date +%s`
         runtime=$((end-start))
         hours=$((runtime / 3600)); minutes=$(( (runtime % 3600) / 60 )); seconds=$(( (runtime % 3600) % 60 ));
-        printf "\r\033[K%s%s. %s: %02d:%02d:%02d.\n" '    ' 'Converted' 'Runtime' $hours $minutes $seconds
+        before=$(wc -c "$1" | awk '{print $1}')
+        after=$(wc -c "$tempfile" | awk '{print $1}')
+        percentage=$(( $((after*100)) / $((before)) ))
+        printf "\r\033[K%s%s. %s: %02d:%02d:%02d. Filesize: %s.\n" '    ' 'Converted' 'Runtime' $hours $minutes $seconds "${percentage}%"
         touch -r "$1" "$tempfile"
         if [ -e "$1" ];then
+            size=$(du --apparent-size --block-size=1 -h "$1" | awk '{ print $1}')
             mkdir -p h264_existing
             mv "$1" h264_existing/"$1"
-            echo '    'Move original file to directory: h264_existing.
+            echo '    'Move original file "($size)" to directory: h264_existing.
         fi
         if [ -e "$tempfile" ];then
+            size=$(du --apparent-size --block-size=1 -h "$tempfile" | awk '{ print $1}')
             mkdir -p h265_converted
             mv "$tempfile" h265_converted/"$1"
-            echo '    'Move converted file to directory: h265_converted.
+            echo '    'Move converted file "($size)" to directory: h265_converted.
         fi
         # Autokill tail.
         pidtail=$(getPid tail "tail -f $templog")

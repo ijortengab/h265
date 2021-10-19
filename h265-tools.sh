@@ -205,6 +205,7 @@ until [[ "$option" == 0 ]]; do
                     -o -path '*mp4_unknown*' \
                     -o -path '*h265_log*' \) \
                     -empty
+                echo
                 echo -n "Removing... (please wait and don't hit any key)"
                 sleep .2
                 find . \
