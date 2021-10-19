@@ -3,7 +3,7 @@
 if [ -e 'h265.lock' ];then
     echo 'This directory may be being processed by someone else.'
     echo 'Check process by yourself, then remove lock file manually.'
-    echo -e "\e[35mrm '$PWD/h265.lock'\e[0m"
+    echo -ne "\e[35m" >&2; echo -n "rm '$PWD/h265.lock'"; echo -ne "\e[0m" >&2; echo
     exit
 fi
 
@@ -11,14 +11,15 @@ command -v "ffmpeg" >/dev/null || { echo "ffmpeg command not found."; exit 1; }
 
 if [ -e 'h265.stop' ];then
     rm 'h265.stop'
-    echo -ne "Delete file: \e[33mh265.stop\e[0m.\n"
+    echo -n "Delete file: "; echo -ne "\e[33m" >&2; echo -n "h265.stop"; echo -ne "\e[0m" >&2; echo
 fi
 
 ctrl_c() {
-    printf "\r\033[K%s\n" '    Aborted.'
+    printf "\r\033[K" >&2
+    printf "%s\n" '    Aborted.'
     if [ -e "$tempfile" ];then
         rm "$tempfile"
-        echo -ne "    Delete file: \e[33m$tempfile\e[0m.\n"
+        echo -n "    Delete file: "; echo -ne "\e[33m" >&2; echo -n "$tempfile"; echo -ne "\e[0m" >&2; echo
     fi
     # Send trigger for break 'while true'
     touch h265.stop
@@ -98,7 +99,7 @@ convertNow() {
         logfile=$(realpath "h265_log/${filename}.log")
         templog=$(mktemp)
         ln -s -f "$logfile" "$templog"
-        echo -e "\e[35mtail -f $templog\e[0m"
+        echo -ne "\e[35m" >&2; echo -n "tail -f $templog"; echo -ne "\e[0m" >&2; echo
         start=`date +%s`
         trap ctrl_c INT
         _convertNow "$1" "$tempfile" "h265_log/${filename}.log" &
@@ -108,7 +109,7 @@ convertNow() {
         while kill -0 $pid 2>/dev/null
         do
           i=$(( (i+1) %4 ))
-          printf "\r    Converting...${spin:$i:1}"
+          printf "\r    Converting...${spin:$i:1}" >&2
           sleep .1
         done
         end=`date +%s`
@@ -117,7 +118,8 @@ convertNow() {
         before=$(wc -c "$1" | awk '{print $1}')
         after=$(wc -c "$tempfile" | awk '{print $1}')
         percentage=$(( $((after*100)) / $((before)) ))
-        printf "\r\033[K%s%s. %s: %02d:%02d:%02d. Filesize: %s.\n" '    ' 'Converted' 'Runtime' $hours $minutes $seconds "${percentage}%"
+        printf "\r\033[K" >&2
+        printf "%s%s. %s: %02d:%02d:%02d. Filesize: %s.\n" '    ' 'Converted' 'Runtime' $hours $minutes $seconds "${percentage}%"
         touch -r "$1" "$tempfile"
         if [ -e "$1" ];then
             size=$(du --apparent-size --block-size=1 -h "$1" | awk '{ print $1}')
@@ -145,7 +147,7 @@ getDuration() {
 touch h265.lock
 while true; do
     find * -maxdepth 0 -iname '*.mp4' | head -1 | while IFS= read -r path; do
-        echo -ne "File \e[33m$path\e[0m is "
+        echo -n "File "; echo -ne "\e[33m" >&2; echo -n "$path"; echo -ne "\e[0m" >&2; echo -n " is "
         if isTemp "$path";then
             echo temporary file.
             mkdir -p mp4_unknown
