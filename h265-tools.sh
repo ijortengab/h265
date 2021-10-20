@@ -65,8 +65,10 @@ until [[ "$option" == 0 ]]; do
         ;;
         2a)
             echo -ne "\e[35m"
-            echo find . -type f  \\\( -path \'*h265_converted*\' -o -path \'*h265_existing*\' \\\) -iname \'*.mp4\' \
-                -exec sh -c \'echo \"\$0\"\; _dir=\$\(dirname \"\$0\"\)\;  dir=\$\(dirname \"\$_dir\"\)\; mv \"\$0\" -t \"\$dir\"\' \{\} \\\;
+
+            echo find . -type f -path \'*h265_converted*\' -o -path \'*h265_existing*\' -iname \'*.mp4\' \| while IFS= read -r _line\; do
+            echo '    'mv \"\$_line\" -t \"\$\(dirname \"\$\(dirname \"\$_line\"\)\"\)\"
+            echo done
             echo -ne "\e[0m"
             echo
             echo "Are you sure wants move all to parent directory?"
@@ -83,8 +85,9 @@ until [[ "$option" == 0 ]]; do
             if [[ "$areyousure" == "yes" ]];then
                 echo -n "Moving... (please wait and don't hit any key)"
                 sleep .2
-                find . -type f \( -path '*h265_converted*' -o -path '*h265_existing*' \) -iname '*.mp4' \
-                    -exec sh -c '_dir=$(dirname "$0");  dir=$(dirname "$_dir"); mv "$0" -t "$dir"' {} \;
+                find . -type f -path '*h265_converted*' -o -path '*h265_existing*' -iname '*.mp4' | while IFS= read -r _line; do
+                    mv "$_line" -t "$(dirname "$(dirname "$_line")")"
+                done
                 printf "\r\033[K"
                 echo "Moved."
             else
@@ -205,7 +208,6 @@ until [[ "$option" == 0 ]]; do
                     -o -path '*mp4_unknown*' \
                     -o -path '*h265_log*' \) \
                     -empty
-                echo
                 echo -n "Removing... (please wait and don't hit any key)"
                 sleep .2
                 find . \
@@ -217,6 +219,7 @@ until [[ "$option" == 0 ]]; do
                     -o -path '*h265_log*' \) \
                     -empty -delete
                 printf "\r\033[K"
+                echo
                 echo "Removed."
                 echo
             else
