@@ -4,7 +4,7 @@ command -v "h265.sh" >/dev/null || { echo "h265.sh command not found."; exit 1; 
 
 pwd="$PWD"
 
-find * -type d \
+find . -type d \
     ! -path '*h264_existing*' \
     ! -path '*h265_existing*' \
     ! -path '*h265_converted*' \
