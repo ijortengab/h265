@@ -3,7 +3,6 @@
 option=
 selected=0
 welcome=1
-clear
 until [[ "$option" == 0 ]]; do
     case "$option" in
         1)
@@ -237,20 +236,8 @@ until [[ "$option" == 0 ]]; do
             fi
         ;;
     esac
-    if [[ $selected == 1 ]];then
-        echo -ne " [\e[33m0\e[0m] "
-        echo Finish
-        echo -ne " [\e[33m*\e[0m] "
-        echo Back to menu
-        echo
-        read -rsn1 -p "Your option: " option; echo
-        if [[ $option == 0 ]];then
-            break
-        fi
-        clear
-        option=
-        selected=0
-    fi
+    option=
+    selected=0
     if [[ $welcome == 1 ]];then
         echo -ne "\e[32mWelcome to h265 tools.\e[0m\n"
         echo -ne "\e[32mJust hit the \e[33myellow\e[32m number without following the Enter key.\e[0m\n"
