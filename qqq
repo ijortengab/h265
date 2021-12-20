@@ -1,0 +1,173 @@
+[33mcommit 4541e143d1e1e7090a112ce47cac46d1894a924e[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Fri Oct 29 20:57:33 2021 +0700
+
+    bugfix
+
+[33mcommit 3bc19475c3efc5e1c4277d9724f8aa154adec491[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Fri Oct 29 20:31:40 2021 +0700
+
+    Add file: h264-find.sh.
+
+[33mcommit 575d3b51f3c550c6ed75285aca0410432e8fa48b[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Fri Oct 29 20:31:16 2021 +0700
+
+    Menyederhanakan menu.
+
+[33mcommit 2825576bc064db42eba5a6e2866b1db1c9a25d98[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Wed Oct 27 23:31:48 2021 +0700
+
+    Improve h265-recursive.sh faster.
+
+[33mcommit 76a40bb1f89c9aec64fdcf22fcc17f3b304e8b8d[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Wed Oct 20 17:41:29 2021 +0700
+
+    Mengganti command moving file.
+
+[33mcommit feaa98a848c9b6e27063af29aef8e0b6f8376c56[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Tue Oct 19 17:17:02 2021 +0700
+
+    Karakter warna dan spinner dilempar ke STDERR.
+
+[33mcommit ea1d3aa998558f636ff8f99035ed60a69fe536b7[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Tue Oct 19 15:36:27 2021 +0700
+
+    Menambah informasi filesize.
+
+[33mcommit dc238d2fe91a5b4cddefd45484709758330077fd[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Tue Oct 19 01:33:30 2021 +0700
+
+    Clean some notice.
+
+[33mcommit ab26973c2b12392ea7e96b35154b283b77c06d45[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Tue Oct 19 01:30:27 2021 +0700
+
+    Add please wait for long time process.
+
+[33mcommit 5fcb7986a10009086ac9da889b4449ddae524da9[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Tue Oct 19 01:04:50 2021 +0700
+
+    Colorize read prompt.
+
+[33mcommit c6b271f6b0790095db0b5920088184adb557588a[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Tue Oct 19 00:35:28 2021 +0700
+
+    Update README.md
+
+[33mcommit 0151ceae0532eec052562609d59655db106c732c[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Tue Oct 19 00:16:19 2021 +0700
+
+    Mengganti posisi argument find.
+
+[33mcommit 7710859652e5999a2803a87295a730d053c6c91e[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Tue Oct 19 00:15:01 2021 +0700
+
+    Mengganti dialog confirmation.
+
+[33mcommit a4be34281514212e34f87e7665b99f1fa586c23d[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Mon Oct 18 22:18:00 2021 +0700
+
+    Update README.
+
+[33mcommit 0ecc650ea8b63f04126a2feb13d3be5cf092c305[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Mon Oct 18 22:05:35 2021 +0700
+
+    Menambah dua file: h265-recursive.sh, h265-tools.sh.
+
+[33mcommit c6e7a800f8a5e2f37bd261e6e332a6ada4aaf457[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Mon Oct 18 16:15:02 2021 +0700
+
+    add ffmpeg as requirement.
+
+[33mcommit 579f562993247db750f9fc1f3464e1d7bc436094[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Mon Oct 18 15:57:58 2021 +0700
+
+    Perbaikan kata.
+
+[33mcommit 855cc00ce7d905a683da3c6734fe1344b93d3904[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Mon Oct 18 15:31:40 2021 +0700
+
+    Auto kill tail if any.
+
+[33mcommit 125d4905db4e06b1f67cd45dfe886d6765627d0a[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Mon Oct 18 15:30:53 2021 +0700
+
+    rename variable.
+
+[33mcommit 344c11796ef6de38014351508c575a3e36e44660[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Mon Oct 18 15:29:50 2021 +0700
+
+    Menghapus file temp log jika ctrl+c.
+
+[33mcommit f5ea567245faf604c4cdc249b22ae6059ca5e8ad[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Mon Oct 18 13:53:46 2021 +0700
+
+    Update README.
+
+[33mcommit c088d09728cd88b9dbd013de3ab798a00bb5f598[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Mon Oct 18 13:48:19 2021 +0700
+
+    Perbarui format waktu runtime.
+
+[33mcommit cc5af82c867785947c29ee310b5f6d5f1a129f24[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Mon Oct 18 13:40:10 2021 +0700
+
+    Add lock file.
+
+[33mcommit a0425e2577a97b21bf0ab1da1926c7c807aa6a65[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Mon Oct 18 13:36:45 2021 +0700
+
+    Colorize path.
+
+[33mcommit c747baf444fd01a3cdaf8623c9eebd6164cea005[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Mon Oct 18 13:32:40 2021 +0700
+
+    Menghapus file h265.stop jika ditemukan diawal process.
+
+[33mcommit b943d304fb561912ad1a2afe3283e8756de40806[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Mon Oct 18 13:28:33 2021 +0700
+
+    Menurunkan process trap.
+
+[33mcommit abb62a0fe15a7a006fd912ca75107e3d419fad9f[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Sat Oct 16 07:00:00 2021 +0700
+
+    Update README.
+
+[33mcommit 57f0ce596d9e887ff2efb3ee97c5a7497c5a2bea[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Fri Oct 15 16:19:45 2021 +0700
+
+    Menambah informasi waktu convert. Membuat alias untuk tail -f.
+
+[33mcommit c8cb352fe459f08313f00f502ad7a995c63c6780[m
+Author: ijortengab <m_roji28@yahoo.com>
+Date:   Fri Oct 15 04:02:34 2021 +0700
+
+    Init.

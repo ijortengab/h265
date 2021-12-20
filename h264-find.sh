@@ -21,15 +21,15 @@ find . -type f \
     ! -path '*h265_log*' \
     -iname '*.mp4' | while IFS= read -r path; do
     if ish264 "$path";then
+        echo -n "File "; echo -ne "\e[33m" >&2; echo -n "$path"; echo -ne "\e[0m" >&2; echo -n " is "
+        echo h264 encoding.
         if [[ "$1" == "-m" ]];then
             dirname=$(dirname "$path")
-            echo -n "File "; echo -ne "\e[33m" >&2; echo -n "$path"; echo -ne "\e[0m" >&2; echo -n " is "
-            echo h264 encoding.
             echo '    'Move file to directory: h264_found.
             mkdir -p "$dirname"/h264_found
             mv "$path" -t "$dirname"/h264_found
-        else
-            echo "$path"        
         fi
+    else
+        echo "File $path is not h264 encoding.";
     fi
 done
