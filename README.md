@@ -11,20 +11,35 @@ Tested in `Cygwin`, `WSL2`, `Ubuntu 20.04`.
 Just download the shell script and put in your PATH.
 
 ```
-curl -L https://raw.githubusercontent.com/ijortengab/h265/master/h265.sh -o h265.sh
-```
-
-or
-
-```
 wget https://raw.githubusercontent.com/ijortengab/h265/master/h265.sh
-```
-
-then
-
-```
 chmod a+x h265.sh
-sudo mv h265.sh -t /usr/local/bin
+mv h265.sh -t /usr/local/bin
+```
+
+```
+curl -O https://raw.githubusercontent.com/ijortengab/h265/master/h265.sh
+chmod a+x h265.sh
+mv h265.sh -t /usr/local/bin
+```
+
+Download all file: `h265.sh`,`h265-tools.sh`,`h265-recursive.sh`,`h264-find.sh`.
+
+```
+for filename in h265.sh h265-tools.sh h265-recursive.sh h264-find.sh
+do
+    wget https://raw.githubusercontent.com/ijortengab/h265/master/$filename
+    chmod a+x $filename
+    mv $filename -t /usr/local/bin
+done
+```
+
+```
+for filename in h265.sh h265-tools.sh h265-recursive.sh h264-find.sh
+do
+    curl -O https://raw.githubusercontent.com/ijortengab/h265/master/$filename
+    chmod a+x $filename
+    mv $filename -t /usr/local/bin
+done
 ```
 
 ## How to Use
